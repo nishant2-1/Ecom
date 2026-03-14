@@ -28,7 +28,13 @@ async function markOrderAsPaid(orderId: string): Promise<void> {
     order.user.name ?? "ShopNova Customer",
     order.id,
     formatCurrency(Number(order.total)),
-    order.items.map((item) => ({
+    order.items.map((item: {
+      quantity: number;
+      price: number;
+      product: {
+        name: string;
+      };
+    }) => ({
       name: item.product.name,
       quantity: item.quantity,
       lineTotal: formatCurrency(Number(item.price) * item.quantity)

@@ -16,7 +16,10 @@ export async function GET(): Promise<NextResponse> {
       prisma.order.findMany({ where: { status: "PAID" }, select: { total: true } })
     ]);
 
-    const totalRevenue = paidOrders.reduce((sum, order) => sum + Number(order.total), 0);
+    const totalRevenue = paidOrders.reduce(
+      (sum: number, order: { total: number }) => sum + Number(order.total),
+      0
+    );
 
     return NextResponse.json({
       stats: {
