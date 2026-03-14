@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { getEmailRuntimeStatus } from "@/lib/email";
 import { AdminClient } from "./AdminClient";
 
 const FALLBACK_PRODUCT_IMAGE =
@@ -146,6 +147,7 @@ export default async function AdminPage() {
   };
 
   const statusBreakdown = Array.from(statusMap.entries()).map(([status, count]) => ({ status, count }));
+  const emailStatus = getEmailRuntimeStatus();
 
   return (
     <section className="mx-auto max-w-[1500px] px-6 py-10 md:px-12">
@@ -190,6 +192,7 @@ export default async function AdminPage() {
             orderCount: user._count.orders
           }))}
           initialStatusBreakdown={statusBreakdown}
+          initialEmailStatus={emailStatus}
         />
       </div>
     </section>

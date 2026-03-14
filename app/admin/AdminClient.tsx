@@ -61,6 +61,17 @@ type StatusBreakdown = {
   count: number;
 };
 
+type EmailStatus = {
+  configured: boolean;
+  mode: "production" | "development" | "test";
+  fromDefault: string;
+  fromAuth: string;
+  fromOrders: string;
+  fromShipping: string;
+  replyTo?: string;
+  missing: string[];
+};
+
 type AdminClientProps = {
   initialStats: AdminStats;
   initialCategories: AdminCategory[];
@@ -68,6 +79,7 @@ type AdminClientProps = {
   initialOrders: AdminOrder[];
   initialUsers: AdminUser[];
   initialStatusBreakdown: StatusBreakdown[];
+  initialEmailStatus: EmailStatus;
 };
 
 const STATUS_OPTIONS = ["PENDING", "PAID", "SHIPPED", "DELIVERED", "CANCELLED"];
@@ -149,7 +161,8 @@ export function AdminClient({
   initialProducts,
   initialOrders,
   initialUsers,
-  initialStatusBreakdown
+  initialStatusBreakdown,
+  initialEmailStatus
 }: AdminClientProps) {
   const [products, setProducts] = useState(initialProducts);
   const [orders, setOrders] = useState(initialOrders);
@@ -161,6 +174,10 @@ export function AdminClient({
   const [orderFilter, setOrderFilter] = useState("ALL");
   const [userQuery, setUserQuery] = useState("");
   const [message, setMessage] = useState<string | null>(null);
+
+  const emailStateTone = initialEmailStatus.configured
+    ? "border-emerald-400/25 bg-emerald-400/10 text-emerald-300"
+    : "border-rose-400/25 bg-rose-400/10 text-rose-300";
 
   const deferredInventoryQuery = useDeferredValue(inventoryQuery);
   const deferredUserQuery = useDeferredValue(userQuery);
@@ -361,6 +378,23 @@ export function AdminClient({
                   <p className="mt-1 text-xs text-white/45">{item.hint}</p>
                 </div>
               ))}
+            </div>
+
+            <div className="mt-5 grid gap-3 md:grid-cols-2">
+              <div className={`rounded-xl border px-4 py-3 text-sm ${emailStateTone}`}>
+                <p className="text-xs uppercase tracking-[0.18em]">Email Transport</p>
+                <p className="mt-1 font-semibold">{initialEmailStatus.configured ? "Configured" : "Missing Configuration"}</p>
+                <p className="mt-1 text-xs opacity-80">Mode: {initialEmailStatus.mode}</p>
+              </div>
+              <div className="rounded-xl border border-white/15 bg-white/5 px-4 py-3 text-xs text-white/70">
+                <p className="uppercase tracking-[0.16em] text-white/55">Email Senders</p>
+                <p className="mt-1">Default: {initialEmailStatus.fromDefault}</p>
+                <p>Auth: {initialEmailStatus.fromAuth}</p>
+                <p>Orders: {initialEmailStatus.fromOrders}</p>
+                {initialEmailStatus.missing.length > 0 ? (
+                  <p className="mt-2 text-rose-300">Missing: {initialEmailStatus.missing.join(", ")}</p>
+                ) : null}
+              </div>
             </div>
 
             {message ? (
