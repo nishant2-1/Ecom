@@ -21,17 +21,26 @@ type SendEmailOptions = {
 
 type EmailSettings = {
   replyTo?: string;
-  baseUrl: string;
   fromDefault: string;
   fromAuth: string;
   fromOrders: string;
   fromShipping: string;
 };
 
+type EmailRuntimeStatus = {
+  configured: boolean;
+  mode: "production" | "development" | "test";
+  fromDefault: string;
+  fromAuth: string;
+  fromOrders: string;
+  fromShipping: string;
+  replyTo?: string;
+  missing: string[];
+};
+
 function getEmailSettings(): EmailSettings {
   return {
     replyTo: process.env.EMAIL_REPLY_TO,
-    baseUrl: process.env.NEXTAUTH_URL ?? "http://localhost:3001",
     fromDefault: process.env.EMAIL_FROM_DEFAULT ?? "ShopNova <noreply@shopnova.dev>",
     fromAuth: process.env.EMAIL_FROM_AUTH ?? process.env.EMAIL_FROM_DEFAULT ?? "ShopNova Auth <auth@shopnova.dev>",
     fromOrders: process.env.EMAIL_FROM_ORDERS ?? process.env.EMAIL_FROM_DEFAULT ?? "ShopNova Orders <orders@shopnova.dev>",
@@ -50,6 +59,35 @@ function getResendClient(): Resend | null {
 
 export function isEmailConfigured(): boolean {
   return Boolean(process.env.RESEND_API_KEY);
+}
+
+export function getEmailRuntimeStatus(): EmailRuntimeStatus {
+  const settings = getEmailSettings();
+  const mode =
+    process.env.NODE_ENV === "production"
+      ? "production"
+      : process.env.NODE_ENV === "test"
+        ? "test"
+        : "development";
+
+  const missing: string[] = [];
+  if (!process.env.RESEND_API_KEY) {
+    missing.push("RESEND_API_KEY");
+  }
+  if (!process.env.EMAIL_FROM_DEFAULT) {
+    missing.push("EMAIL_FROM_DEFAULT");
+  }
+
+  return {
+    configured: missing.length === 0,
+    mode,
+    fromDefault: settings.fromDefault,
+    fromAuth: settings.fromAuth,
+    fromOrders: settings.fromOrders,
+    fromShipping: settings.fromShipping,
+    replyTo: settings.replyTo,
+    missing
+  };
 }
 
 async function sendEmail({ to, subject, react, from, replyTo, required = false }: SendEmailOptions): Promise<void> {
@@ -86,6 +124,13 @@ async function sendEmail({ to, subject, react, from, replyTo, required = false }
 }
 
 export async function sendMagicLinkEmail(to: string, url: string): Promise<void> {
+  if (!isEmailConfigured()) {
+    if (process.env.NODE_ENV !== "production") {
+      console.info(`[email:magic-link] ${to} -> ${url}`);
+      return;
+    }
+  }
+
   const settings = getEmailSettings();
 
   await sendEmail({
