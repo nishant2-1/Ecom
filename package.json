@@ -8,6 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
+    "check": "npm run lint && npm run typecheck",
+    "ci:check": "npm run format:check && npm run check",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "prisma:generate": "prisma generate",
