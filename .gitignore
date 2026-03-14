@@ -9,5 +9,6 @@ out
 coverage
 *.log
 prisma/dev.db
+tsconfig.tsbuildinfo
 
 prisma/prisma/dev.db
