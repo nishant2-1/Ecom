@@ -16,6 +16,25 @@ export type HomeCategory = {
   description: string;
 };
 
+export type ProductSpec = {
+  label: string;
+  value: string;
+};
+
+export type ProductDetails = {
+  story: string;
+  craftsmanship: string;
+  materials: string[];
+  highlights: string[];
+  specs: ProductSpec[];
+  inTheBox: string[];
+  shipping: string;
+  warranty: string;
+  care: string;
+  rating: number;
+  reviews: number;
+};
+
 export const featuredProducts: HomeProduct[] = [
   {
     id: "p_1",
@@ -382,3 +401,266 @@ export const luxuryCategories: HomeCategory[] = [
     description: "Recovery and wellbeing products with premium design language."
   }
 ];
+
+type ProductDetailsOverride = Partial<Omit<ProductDetails, "specs">> & {
+  specs?: ProductSpec[];
+};
+
+function getCategoryTemplate(product: HomeProduct): ProductDetails {
+  const common = {
+    story: `${product.name} is engineered for premium daily performance with a design-forward silhouette.`,
+    shipping: "Free insured shipping in 3-5 business days. Express delivery available at checkout.",
+    warranty: "2-year international warranty with priority service support.",
+    care: "Clean with a soft dry cloth and keep away from prolonged moisture and direct heat."
+  };
+
+  switch (product.category) {
+    case "timepieces":
+      return {
+        ...common,
+        craftsmanship:
+          "Swiss-grade assembly with calibrated movement and anti-reflective sapphire finishing.",
+        materials: ["316L stainless steel", "Sapphire crystal", "Genuine leather strap"],
+        highlights: [
+          "Precision timekeeping with smooth sweep motion",
+          "Scratch-resistant crystal for daily wear",
+          "Balanced case profile designed for comfort"
+        ],
+        specs: [
+          { label: "Movement", value: "Automatic / Quartz calibrated" },
+          { label: "Case Size", value: "40-42 mm" },
+          { label: "Water Resistance", value: "5 ATM" },
+          { label: "Crystal", value: "Sapphire" }
+        ],
+        inTheBox: ["Timepiece", "Presentation box", "Service booklet", "Microfiber cloth"],
+        rating: 4.8,
+        reviews: 214
+      };
+    case "audio":
+      return {
+        ...common,
+        craftsmanship:
+          "Acoustic chambers are tuned for clarity, depth, and fatigue-free long listening sessions.",
+        materials: ["Anodized aluminum", "Acoustic mesh", "High-density polymer housing"],
+        highlights: [
+          "Balanced signature across vocals, lows, and highs",
+          "Low-latency mode for gaming and streaming",
+          "Intelligent noise management for urban environments"
+        ],
+        specs: [
+          { label: "Connectivity", value: "Bluetooth 5.3 / USB-C" },
+          { label: "Battery", value: "Up to 32 hours" },
+          { label: "Drivers", value: "Custom dynamic drivers" },
+          { label: "Microphones", value: "Dual beamforming array" }
+        ],
+        inTheBox: ["Audio device", "USB-C cable", "Travel pouch", "Quick start guide"],
+        rating: 4.7,
+        reviews: 389
+      };
+    case "leather":
+      return {
+        ...common,
+        craftsmanship:
+          "Hand-cut and edge-finished panels ensure shape retention and long-term patina character.",
+        materials: ["Full-grain leather", "Brushed metal hardware", "Reinforced cotton lining"],
+        highlights: [
+          "Built to age beautifully with use",
+          "Thoughtful internal organization",
+          "Reinforced stitch architecture at stress points"
+        ],
+        specs: [
+          { label: "Leather", value: "Full-grain" },
+          { label: "Lining", value: "Soft woven interior" },
+          { label: "Closure", value: "Premium zipper / snap" },
+          { label: "Security", value: "RFID-blocking on select models" }
+        ],
+        inTheBox: ["Leather accessory", "Dust bag", "Care card"],
+        rating: 4.8,
+        reviews: 176
+      };
+    case "interiors":
+      return {
+        ...common,
+        craftsmanship:
+          "Architectural forms are blended with ambient engineering for visual calm and functional output.",
+        materials: ["Powder-coated metal", "Ceramic composite", "Diffused glass"],
+        highlights: [
+          "Minimal silhouette that anchors modern rooms",
+          "Low-glare output for evening comfort",
+          "Smart control compatibility"
+        ],
+        specs: [
+          { label: "Power", value: "Energy-efficient LED core" },
+          { label: "Control", value: "App + touch controls" },
+          { label: "Finish", value: "Matte textured coating" },
+          { label: "Lifespan", value: "Up to 30,000 hours" }
+        ],
+        inTheBox: ["Primary fixture", "Power adapter", "Mounting kit", "Quick guide"],
+        rating: 4.6,
+        reviews: 143
+      };
+    case "eyewear":
+      return {
+        ...common,
+        craftsmanship:
+          "Frames are precision-balanced at bridge and temple points for all-day wearability.",
+        materials: ["Titanium alloy", "Lightweight acetate", "Hardened lens coating"],
+        highlights: [
+          "Feather-light fit for extended sessions",
+          "Optical clarity with reduced eye fatigue",
+          "Frame geometry tuned for daily movement"
+        ],
+        specs: [
+          { label: "Lens", value: "UV400 / blue-light filter" },
+          { label: "Frame Width", value: "137-142 mm" },
+          { label: "Weight", value: "18-24 g" },
+          { label: "Bridge", value: "Adjustable nose support" }
+        ],
+        inTheBox: ["Eyewear", "Protective case", "Cleaning cloth", "Lens card"],
+        rating: 4.7,
+        reviews: 121
+      };
+    case "travel":
+      return {
+        ...common,
+        craftsmanship:
+          "Travel systems are tested for repetitive transit stress and optimized for modular packing.",
+        materials: ["Impact-resistant shell", "Water-repellent textiles", "YKK hardware"],
+        highlights: [
+          "Cabin-friendly dimensions on select variants",
+          "Smooth maneuverability under full load",
+          "Compartment architecture for fast access"
+        ],
+        specs: [
+          { label: "Capacity", value: "20-45 L (model dependent)" },
+          { label: "Security", value: "Integrated TSA lock / hidden pockets" },
+          { label: "Mobility", value: "Low-noise wheels or ergonomic straps" },
+          { label: "Weather", value: "Water-resistant exterior" }
+        ],
+        inTheBox: ["Travel product", "Brand tag", "Care and travel guide"],
+        rating: 4.7,
+        reviews: 198
+      };
+    case "workspace":
+      return {
+        ...common,
+        craftsmanship:
+          "Each tool is tuned for ergonomic comfort and long-cycle reliability in focused work environments.",
+        materials: ["Machined aluminum", "Soft-touch polymer", "Precision sensor components"],
+        highlights: [
+          "Comfort geometry for long desk sessions",
+          "Silent and responsive operation",
+          "Cross-device compatibility"
+        ],
+        specs: [
+          { label: "Connection", value: "Bluetooth + USB-C" },
+          { label: "Battery", value: "Rechargeable long-life cell" },
+          { label: "Compatibility", value: "macOS / Windows / Linux" },
+          { label: "Build", value: "Matte anti-smudge finish" }
+        ],
+        inTheBox: ["Workspace device", "USB-C cable", "Quick setup card"],
+        rating: 4.8,
+        reviews: 267
+      };
+    case "wellness":
+      return {
+        ...common,
+        craftsmanship:
+          "Designed for daily recovery routines with low-noise motors and body-safe contact materials.",
+        materials: ["Medical-grade silicone", "Anodized alloy", "Soft-touch polymer"],
+        highlights: [
+          "Quiet operation for home and office use",
+          "Adaptive routines for different recovery goals",
+          "Portable form factor with dependable battery life"
+        ],
+        specs: [
+          { label: "Modes", value: "Multiple intensity presets" },
+          { label: "Battery", value: "USB-C fast charge" },
+          { label: "Weight", value: "Travel-friendly profile" },
+          { label: "Noise", value: "Low-noise engineered motor" }
+        ],
+        inTheBox: ["Wellness device", "Charging cable", "Carry pouch", "Routine guide"],
+        rating: 4.6,
+        reviews: 152
+      };
+    default:
+      return {
+        ...common,
+        craftsmanship:
+          "Crafted with premium materials and built for consistent long-term performance.",
+        materials: ["Premium composite", "Performance-grade metal"],
+        highlights: ["Premium finish", "Tested for everyday reliability"],
+        specs: [
+          { label: "Build", value: "Premium" },
+          { label: "Warranty", value: "2 years" }
+        ],
+        inTheBox: ["Main product", "Documentation"],
+        rating: 4.7,
+        reviews: 100
+      };
+  }
+}
+
+const productDetailsOverrides: Record<string, ProductDetailsOverride> = {
+  "aether-chronograph": {
+    story: "A sculpted chronograph with confident dial depth and precise Swiss cadence.",
+    specs: [
+      { label: "Movement", value: "Swiss quartz chronograph" },
+      { label: "Case", value: "41 mm brushed steel" },
+      { label: "Water Resistance", value: "10 ATM" },
+      { label: "Strap", value: "Italian leather" }
+    ]
+  },
+  "velvet-audio-studio": {
+    story: "Reference-grade wireless audio tuned for cinematic space and detail retrieval.",
+    specs: [
+      { label: "Codec", value: "AAC / aptX adaptive" },
+      { label: "ANC", value: "Hybrid adaptive ANC" },
+      { label: "Battery", value: "Up to 36 hours" },
+      { label: "Latency", value: "Low-latency media mode" }
+    ]
+  },
+  "atlas-cabin-trolley": {
+    craftsmanship:
+      "Aviation-inspired shell engineering with smooth wheel geometry for airport transitions.",
+    specs: [
+      { label: "Capacity", value: "38 L" },
+      { label: "Shell", value: "Impact-resistant polycarbonate" },
+      { label: "Mobility", value: "360-degree silent spinner wheels" },
+      { label: "Security", value: "Integrated TSA lock" }
+    ]
+  },
+  "arc-wireless-keyboard": {
+    care: "Use a dry brush for keycaps and avoid liquid cleaners near switch housings.",
+    specs: [
+      { label: "Switches", value: "Low-profile tactile" },
+      { label: "Layout", value: "Compact 80%" },
+      { label: "Battery", value: "Up to 90 days" },
+      { label: "Backlight", value: "Adaptive white backlight" }
+    ]
+  },
+  "aura-recovery-massager": {
+    warranty: "2-year warranty plus complimentary replacement head kit in year one."
+  },
+  "drift-audio-soundbar": {
+    shipping: "Free insured delivery in 4-7 business days due to oversized packaging."
+  }
+};
+
+export function getProductDetails(product: HomeProduct): ProductDetails {
+  const base = getCategoryTemplate(product);
+  const override = productDetailsOverrides[product.slug];
+
+  if (!override) {
+    return base;
+  }
+
+  return {
+    ...base,
+    ...override,
+    materials: override.materials ?? base.materials,
+    highlights: override.highlights ?? base.highlights,
+    specs: override.specs ?? base.specs,
+    inTheBox: override.inTheBox ?? base.inTheBox
+  };
+}
