@@ -2,6 +2,12 @@ import Link from "next/link";
 import { RegisterForm } from "./RegisterForm";
 
 export default function RegisterPage() {
+  const authProviders = {
+    google: Boolean(process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET),
+    github: Boolean(process.env.GITHUB_ID && process.env.GITHUB_SECRET),
+    magicLink: Boolean(process.env.RESEND_API_KEY)
+  };
+
   return (
     <section className="mx-auto max-w-md px-6 py-20">
       <div className="glass-card rounded-2xl p-8 shadow-glass">
@@ -10,7 +16,7 @@ export default function RegisterPage() {
           Create your profile and continue with secure sign-in.
         </p>
         <div className="mt-6">
-          <RegisterForm />
+          <RegisterForm providers={authProviders} />
         </div>
         <p className="mt-5 text-center text-xs text-white/60">
           Already have an account?{" "}

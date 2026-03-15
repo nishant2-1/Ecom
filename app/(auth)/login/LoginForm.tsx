@@ -11,7 +11,15 @@ import { Button } from "@/components/ui/Button";
 
 type LoginFormValues = z.infer<typeof loginSchema>;
 
-export function LoginForm() {
+type LoginFormProps = {
+  providers: {
+    google: boolean;
+    github: boolean;
+    magicLink: boolean;
+  };
+};
+
+export function LoginForm({ providers }: LoginFormProps) {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -41,13 +49,27 @@ export function LoginForm() {
   return (
     <div className="space-y-4">
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-        <Button className="w-full" onClick={() => signIn("google", { redirectTo: "/account" })}>
+        <Button
+          className="w-full"
+          disabled={!providers.google}
+          onClick={() => signIn("google", { redirectTo: "/account" })}
+        >
           Continue with Google
         </Button>
-        <Button className="w-full" onClick={() => signIn("github", { redirectTo: "/account" })}>
+        <Button
+          className="w-full"
+          disabled={!providers.github}
+          onClick={() => signIn("github", { redirectTo: "/account" })}
+        >
           Continue with GitHub
         </Button>
       </div>
+
+      {!providers.google || !providers.github ? (
+        <p className="text-xs text-white/60">
+          Social login is disabled until provider credentials are configured in `.env.local`.
+        </p>
+      ) : null}
 
       <div className="relative my-2">
         <div className="h-px w-full bg-white/15" />
@@ -62,9 +84,14 @@ export function LoginForm() {
           <p className="text-xs text-red-400">{form.formState.errors.email.message}</p>
         ) : null}
         {error ? <p className="text-xs text-red-400">{error}</p> : null}
-        <Button className="w-full" type="submit" disabled={loading}>
+        <Button className="w-full" type="submit" disabled={loading || !providers.magicLink}>
           {loading ? "Sending link..." : "Send Magic Link"}
         </Button>
+        {!providers.magicLink ? (
+          <p className="text-xs text-white/60">
+            Magic link is disabled until `RESEND_API_KEY` is configured.
+          </p>
+        ) : null}
       </form>
     </div>
   );
