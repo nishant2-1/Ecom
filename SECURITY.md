@@ -4,10 +4,10 @@
 
 This repository is actively maintained on the `main` branch.
 
-| Version | Supported |
-| --- | --- |
-| main | Yes |
-| older snapshots | No |
+| Version         | Supported |
+| --------------- | --------- |
+| main            | Yes       |
+| older snapshots | No        |
 
 ## Reporting a Vulnerability
 

@@ -17,7 +17,8 @@ export function WelcomeEmail({ name }: WelcomeEmailProps) {
     >
       <Section>
         <Text style={{ color: "#d6d6d6", fontSize: "14px", lineHeight: "1.7", margin: 0 }}>
-          Start with featured drops, save favorites, and manage your orders from an immersive account dashboard.
+          Start with featured drops, save favorites, and manage your orders from an immersive
+          account dashboard.
         </Text>
       </Section>
     </EmailShell>

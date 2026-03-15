@@ -42,10 +42,18 @@ function getEmailSettings(): EmailSettings {
   return {
     replyTo: process.env.EMAIL_REPLY_TO,
     fromDefault: process.env.EMAIL_FROM_DEFAULT ?? "ShopNova <noreply@shopnova.dev>",
-    fromAuth: process.env.EMAIL_FROM_AUTH ?? process.env.EMAIL_FROM_DEFAULT ?? "ShopNova Auth <auth@shopnova.dev>",
-    fromOrders: process.env.EMAIL_FROM_ORDERS ?? process.env.EMAIL_FROM_DEFAULT ?? "ShopNova Orders <orders@shopnova.dev>",
+    fromAuth:
+      process.env.EMAIL_FROM_AUTH ??
+      process.env.EMAIL_FROM_DEFAULT ??
+      "ShopNova Auth <auth@shopnova.dev>",
+    fromOrders:
+      process.env.EMAIL_FROM_ORDERS ??
+      process.env.EMAIL_FROM_DEFAULT ??
+      "ShopNova Orders <orders@shopnova.dev>",
     fromShipping:
-      process.env.EMAIL_FROM_SHIPPING ?? process.env.EMAIL_FROM_DEFAULT ?? "ShopNova Shipping <shipping@shopnova.dev>"
+      process.env.EMAIL_FROM_SHIPPING ??
+      process.env.EMAIL_FROM_DEFAULT ??
+      "ShopNova Shipping <shipping@shopnova.dev>"
   };
 }
 
@@ -90,7 +98,14 @@ export function getEmailRuntimeStatus(): EmailRuntimeStatus {
   };
 }
 
-async function sendEmail({ to, subject, react, from, replyTo, required = false }: SendEmailOptions): Promise<void> {
+async function sendEmail({
+  to,
+  subject,
+  react,
+  from,
+  replyTo,
+  required = false
+}: SendEmailOptions): Promise<void> {
   const resend = getResendClient();
 
   if (!resend) {

@@ -76,7 +76,9 @@ export function EmailShell({
             >
               {title}
             </Text>
-            <Text style={{ color: "#d6d6d6", fontSize: "15px", lineHeight: "1.7", margin: 0 }}>{intro}</Text>
+            <Text style={{ color: "#d6d6d6", fontSize: "15px", lineHeight: "1.7", margin: 0 }}>
+              {intro}
+            </Text>
           </Section>
 
           {ctaLabel && ctaHref ? (
@@ -102,7 +104,8 @@ export function EmailShell({
           <Hr style={{ borderColor: "rgba(255,255,255,0.1)", margin: "28px 0" }} />
 
           <Text style={{ color: "#8d8d8d", fontSize: "12px", lineHeight: "1.6", margin: 0 }}>
-            ShopNova premium commerce. Immersive catalog, elevated checkout, and precise order orchestration.
+            ShopNova premium commerce. Immersive catalog, elevated checkout, and precise order
+            orchestration.
           </Text>
         </Container>
       </Body>

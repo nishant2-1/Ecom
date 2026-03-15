@@ -31,7 +31,11 @@ export function CartClient() {
       <div className="space-y-3">
         <div className="flex items-center justify-between">
           <h2 className="text-luxury-heading text-2xl">Items</h2>
-          <button type="button" onClick={clear} className="text-xs uppercase tracking-[0.2em] text-red-300">
+          <button
+            type="button"
+            onClick={clear}
+            className="text-xs uppercase tracking-[0.2em] text-red-300"
+          >
             Clear cart
           </button>
         </div>

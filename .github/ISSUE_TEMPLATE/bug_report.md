@@ -22,9 +22,9 @@ Describe the problem clearly.
 
 ## Steps To Reproduce
 
-1. 
-2. 
-3. 
+1.
+2.
+3.
 
 ## Expected Result
 

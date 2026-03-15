@@ -23,7 +23,8 @@ export const featuredProducts: HomeProduct[] = [
     category: "timepieces",
     description: "Swiss movement wrapped in sculpted steel with sapphire crystal.",
     name: "Aether Chronograph",
-    image: "https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?w=900&auto=format&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?w=900&auto=format&fit=crop",
     price: 24999
   },
   {
@@ -41,7 +42,8 @@ export const featuredProducts: HomeProduct[] = [
     category: "audio",
     description: "Studio-tuned wireless system with precision ANC and spatial rendering.",
     name: "Velvet Audio Studio",
-    image: "https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?w=900&auto=format&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?w=900&auto=format&fit=crop",
     price: 21990
   },
   {
@@ -50,7 +52,8 @@ export const featuredProducts: HomeProduct[] = [
     category: "interiors",
     description: "Matte-black lighting sculpture with adaptive scenes and warm diffusion.",
     name: "Obsidian Smart Lamp",
-    image: "https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?w=900&auto=format&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?w=900&auto=format&fit=crop",
     price: 7999
   }
 ];
@@ -81,7 +84,8 @@ export const catalogProducts: HomeProduct[] = [
     category: "interiors",
     description: "Modern ring light with ambient and focus modes for workspaces.",
     name: "Aurelia Ring Light",
-    image: "https://images.unsplash.com/photo-1540932239986-30128078f3c5?w=900&auto=format&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1540932239986-30128078f3c5?w=900&auto=format&fit=crop",
     price: 8999
   },
   {
@@ -90,7 +94,8 @@ export const catalogProducts: HomeProduct[] = [
     category: "timepieces",
     description: "Self-winding automatic watch with exhibition caseback.",
     name: "Strata Automatic Watch",
-    image: "https://images.unsplash.com/photo-1434494878577-86c23bcb06b9?w=900&auto=format&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1434494878577-86c23bcb06b9?w=900&auto=format&fit=crop",
     price: 31999
   }
 ];
@@ -100,21 +105,24 @@ export const luxuryCategories: HomeCategory[] = [
     id: "c_1",
     name: "Timepieces",
     slug: "timepieces",
-    image: "https://images.unsplash.com/photo-1509048191080-d2cfb7b9cd34?w=900&auto=format&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1509048191080-d2cfb7b9cd34?w=900&auto=format&fit=crop",
     description: "Precision-engineered watches and signatures."
   },
   {
     id: "c_2",
     name: "Audio",
     slug: "audio",
-    image: "https://images.unsplash.com/photo-1484704849700-f032a568e944?w=900&auto=format&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1484704849700-f032a568e944?w=900&auto=format&fit=crop",
     description: "Immersive sound systems with refined design."
   },
   {
     id: "c_3",
     name: "Leather",
     slug: "leather",
-    image: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=900&auto=format&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=900&auto=format&fit=crop",
     description: "Bags and accessories crafted for permanence."
   }
 ];

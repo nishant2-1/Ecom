@@ -131,7 +131,8 @@ function parseProductResponse(data: {
     };
   };
 }): AdminProduct {
-  let image = "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=900&auto=format&fit=crop";
+  let image =
+    "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=900&auto=format&fit=crop";
 
   try {
     const parsed = JSON.parse(data.product.images) as unknown;
@@ -139,7 +140,8 @@ function parseProductResponse(data: {
       image = parsed[0];
     }
   } catch {
-    image = "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=900&auto=format&fit=crop";
+    image =
+      "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=900&auto=format&fit=crop";
   }
 
   return {
@@ -184,11 +186,31 @@ export function AdminClient({
 
   const topLine = useMemo(
     () => [
-      { label: "Revenue", value: formatCurrency(stats.revenue), hint: `${stats.paidOrders} monetized orders` },
-      { label: "Orders", value: String(stats.orders), hint: `${statusBreakdown.find((item) => item.status === "PENDING")?.count ?? 0} pending` },
-      { label: "Inventory", value: String(stats.products), hint: `${stats.lowStock} low-stock items` },
-      { label: "Audience", value: String(stats.users), hint: `${stats.featured} featured products live` },
-      { label: "Avg Paid Order", value: formatCurrency(stats.avgPaidOrder), hint: "High-value checkout signal" }
+      {
+        label: "Revenue",
+        value: formatCurrency(stats.revenue),
+        hint: `${stats.paidOrders} monetized orders`
+      },
+      {
+        label: "Orders",
+        value: String(stats.orders),
+        hint: `${statusBreakdown.find((item) => item.status === "PENDING")?.count ?? 0} pending`
+      },
+      {
+        label: "Inventory",
+        value: String(stats.products),
+        hint: `${stats.lowStock} low-stock items`
+      },
+      {
+        label: "Audience",
+        value: String(stats.users),
+        hint: `${stats.featured} featured products live`
+      },
+      {
+        label: "Avg Paid Order",
+        value: formatCurrency(stats.avgPaidOrder),
+        hint: "High-value checkout signal"
+      }
     ],
     [stats, statusBreakdown]
   );
@@ -324,7 +346,9 @@ export function AdminClient({
       return;
     }
 
-    setOrders((current) => current.map((order) => (order.id === id ? { ...order, status } : order)));
+    setOrders((current) =>
+      current.map((order) => (order.id === id ? { ...order, status } : order))
+    );
     setStatusBreakdown((current) =>
       current.map((item) => {
         if (item.status === previousStatus) {
@@ -367,13 +391,19 @@ export function AdminClient({
               Orchestrate inventory, access, and order flow in one gravity-free workspace.
             </h2>
             <p className="mt-4 max-w-2xl text-sm text-white/70 md:text-base">
-              This admin surface is tuned like a live retail control room: visual inventory, status pressure, customer access, and product creation without dead space.
+              This admin surface is tuned like a live retail control room: visual inventory, status
+              pressure, customer access, and product creation without dead space.
             </p>
 
             <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
               {topLine.map((item) => (
-                <div key={item.label} className="rounded-2xl border border-white/15 bg-white/5 p-4 backdrop-blur">
-                  <p className="text-[11px] uppercase tracking-[0.2em] text-white/55">{item.label}</p>
+                <div
+                  key={item.label}
+                  className="rounded-2xl border border-white/15 bg-white/5 p-4 backdrop-blur"
+                >
+                  <p className="text-[11px] uppercase tracking-[0.2em] text-white/55">
+                    {item.label}
+                  </p>
                   <p className="mt-2 text-2xl text-luxury-amber">{item.value}</p>
                   <p className="mt-1 text-xs text-white/45">{item.hint}</p>
                 </div>
@@ -383,7 +413,9 @@ export function AdminClient({
             <div className="mt-5 grid gap-3 md:grid-cols-2">
               <div className={`rounded-xl border px-4 py-3 text-sm ${emailStateTone}`}>
                 <p className="text-xs uppercase tracking-[0.18em]">Email Transport</p>
-                <p className="mt-1 font-semibold">{initialEmailStatus.configured ? "Configured" : "Missing Configuration"}</p>
+                <p className="mt-1 font-semibold">
+                  {initialEmailStatus.configured ? "Configured" : "Missing Configuration"}
+                </p>
                 <p className="mt-1 text-xs opacity-80">Mode: {initialEmailStatus.mode}</p>
               </div>
               <div className="rounded-xl border border-white/15 bg-white/5 px-4 py-3 text-xs text-white/70">
@@ -392,7 +424,9 @@ export function AdminClient({
                 <p>Auth: {initialEmailStatus.fromAuth}</p>
                 <p>Orders: {initialEmailStatus.fromOrders}</p>
                 {initialEmailStatus.missing.length > 0 ? (
-                  <p className="mt-2 text-rose-300">Missing: {initialEmailStatus.missing.join(", ")}</p>
+                  <p className="mt-2 text-rose-300">
+                    Missing: {initialEmailStatus.missing.join(", ")}
+                  </p>
                 ) : null}
               </div>
             </div>
@@ -448,11 +482,36 @@ export function AdminClient({
           </div>
 
           <form className="mt-4 grid gap-3 md:grid-cols-2" onSubmit={addProduct}>
-            <input name="name" placeholder="Product name" className="rounded-xl border border-white/20 bg-black/40 px-3 py-2 text-sm" required />
-            <input name="slug" placeholder="Slug (optional)" className="rounded-xl border border-white/20 bg-black/40 px-3 py-2 text-sm" />
-            <textarea name="description" placeholder="Describe the product" className="min-h-[108px] rounded-xl border border-white/20 bg-black/40 px-3 py-2 text-sm md:col-span-2" required />
-            <input name="image" type="url" placeholder="Primary image URL" className="rounded-xl border border-white/20 bg-black/40 px-3 py-2 text-sm md:col-span-2" required />
-            <select name="categoryId" className="rounded-xl border border-white/20 bg-black/40 px-3 py-2 text-sm" required defaultValue="">
+            <input
+              name="name"
+              placeholder="Product name"
+              className="rounded-xl border border-white/20 bg-black/40 px-3 py-2 text-sm"
+              required
+            />
+            <input
+              name="slug"
+              placeholder="Slug (optional)"
+              className="rounded-xl border border-white/20 bg-black/40 px-3 py-2 text-sm"
+            />
+            <textarea
+              name="description"
+              placeholder="Describe the product"
+              className="min-h-[108px] rounded-xl border border-white/20 bg-black/40 px-3 py-2 text-sm md:col-span-2"
+              required
+            />
+            <input
+              name="image"
+              type="url"
+              placeholder="Primary image URL"
+              className="rounded-xl border border-white/20 bg-black/40 px-3 py-2 text-sm md:col-span-2"
+              required
+            />
+            <select
+              name="categoryId"
+              className="rounded-xl border border-white/20 bg-black/40 px-3 py-2 text-sm"
+              required
+              defaultValue=""
+            >
               <option value="" disabled>
                 Select category
               </option>
@@ -462,13 +521,38 @@ export function AdminClient({
                 </option>
               ))}
             </select>
-            <input name="price" type="number" step="0.01" min="0" placeholder="Price" className="rounded-xl border border-white/20 bg-black/40 px-3 py-2 text-sm" required />
-            <input name="comparePrice" type="number" step="0.01" min="0" placeholder="Compare price" className="rounded-xl border border-white/20 bg-black/40 px-3 py-2 text-sm" />
-            <input name="stock" type="number" min="0" placeholder="Stock" className="rounded-xl border border-white/20 bg-black/40 px-3 py-2 text-sm" required />
+            <input
+              name="price"
+              type="number"
+              step="0.01"
+              min="0"
+              placeholder="Price"
+              className="rounded-xl border border-white/20 bg-black/40 px-3 py-2 text-sm"
+              required
+            />
+            <input
+              name="comparePrice"
+              type="number"
+              step="0.01"
+              min="0"
+              placeholder="Compare price"
+              className="rounded-xl border border-white/20 bg-black/40 px-3 py-2 text-sm"
+            />
+            <input
+              name="stock"
+              type="number"
+              min="0"
+              placeholder="Stock"
+              className="rounded-xl border border-white/20 bg-black/40 px-3 py-2 text-sm"
+              required
+            />
             <label className="flex items-center rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white/80">
               <input type="checkbox" name="featured" className="mr-2" /> Feature in storefront
             </label>
-            <button disabled={creating} className="rounded-xl bg-luxury-amber px-4 py-2 text-sm font-semibold text-black transition hover:opacity-90 md:col-span-2">
+            <button
+              disabled={creating}
+              className="rounded-xl bg-luxury-amber px-4 py-2 text-sm font-semibold text-black transition hover:opacity-90 md:col-span-2"
+            >
               {creating ? "Deploying product..." : "Create Product"}
             </button>
           </form>
@@ -479,7 +563,9 @@ export function AdminClient({
         <div className="glass-card rounded-2xl p-5">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <p className="text-xs uppercase tracking-[0.2em] text-luxury-amber">Inventory Visuals</p>
+              <p className="text-xs uppercase tracking-[0.2em] text-luxury-amber">
+                Inventory Visuals
+              </p>
               <h3 className="text-luxury-heading text-2xl">Live Product Grid</h3>
             </div>
             <input
@@ -492,7 +578,10 @@ export function AdminClient({
 
           <div className="mt-4 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
             {filteredProducts.map((product) => (
-              <div key={product.id} className="group overflow-hidden rounded-2xl border border-white/10 bg-black/20">
+              <div
+                key={product.id}
+                className="group overflow-hidden rounded-2xl border border-white/10 bg-black/20"
+              >
                 <div className="relative h-40 overflow-hidden">
                   <Image
                     src={product.image}
@@ -523,7 +612,10 @@ export function AdminClient({
                   </div>
                   <div className="flex items-center justify-between text-xs text-white/60">
                     <span>Stock: {product.stock}</span>
-                    <button onClick={() => deleteProduct(product)} className="text-rose-300 transition hover:text-rose-200">
+                    <button
+                      onClick={() => deleteProduct(product)}
+                      className="text-rose-300 transition hover:text-rose-200"
+                    >
                       Delete
                     </button>
                   </div>
@@ -559,9 +651,13 @@ export function AdminClient({
                 <div className="flex items-center justify-between gap-3">
                   <div>
                     <p className="text-sm text-white">#{order.id.slice(0, 10)}</p>
-                    <p className="text-xs text-white/55">{order.user?.email ?? "Unknown customer"}</p>
+                    <p className="text-xs text-white/55">
+                      {order.user?.email ?? "Unknown customer"}
+                    </p>
                   </div>
-                  <span className={`rounded-full border px-2 py-1 text-[10px] uppercase tracking-[0.14em] ${STATUS_ACCENTS[order.status] ?? "border-white/20 text-white/70"}`}>
+                  <span
+                    className={`rounded-full border px-2 py-1 text-[10px] uppercase tracking-[0.14em] ${STATUS_ACCENTS[order.status] ?? "border-white/20 text-white/70"}`}
+                  >
                     {order.status}
                   </span>
                 </div>
@@ -573,7 +669,9 @@ export function AdminClient({
                 </div>
                 <select
                   value={order.status}
-                  onChange={(event) => updateOrderStatus(order.id, order.status, event.target.value)}
+                  onChange={(event) =>
+                    updateOrderStatus(order.id, order.status, event.target.value)
+                  }
                   className="mt-3 w-full rounded-xl border border-white/20 bg-black/40 px-3 py-2 text-sm"
                 >
                   {STATUS_OPTIONS.map((status) => (

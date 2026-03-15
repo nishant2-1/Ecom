@@ -38,7 +38,13 @@ function CommandCore() {
 
       <mesh ref={haloRef} rotation={[0.6, 0.3, 0]}>
         <torusGeometry args={[1.45, 0.04, 18, 120]} />
-        <meshStandardMaterial color="#ffffff" emissive="#ffffff" emissiveIntensity={0.2} roughness={0.35} metalness={0.65} />
+        <meshStandardMaterial
+          color="#ffffff"
+          emissive="#ffffff"
+          emissiveIntensity={0.2}
+          roughness={0.35}
+          metalness={0.65}
+        />
       </mesh>
     </group>
   );
@@ -79,10 +85,21 @@ function SatelliteGrid({ color, radius, count, y, speed }: SatelliteGridProps) {
   return (
     <group ref={groupRef} position={[0, y, 0]}>
       {nodes.map((node, index) => (
-        <Float key={`${radius}-${index}`} speed={1 + index * 0.08} rotationIntensity={0.7} floatIntensity={0.55}>
+        <Float
+          key={`${radius}-${index}`}
+          speed={1 + index * 0.08}
+          rotationIntensity={0.7}
+          floatIntensity={0.55}
+        >
           <mesh position={[node.x, 0, node.z]} rotation={[0.2, node.rotation, 0]}>
             <boxGeometry args={[0.18, 0.18, 0.28]} />
-            <meshStandardMaterial color={color} emissive={color} emissiveIntensity={0.24} roughness={0.28} metalness={0.8} />
+            <meshStandardMaterial
+              color={color}
+              emissive={color}
+              emissiveIntensity={0.24}
+              roughness={0.28}
+              metalness={0.8}
+            />
           </mesh>
         </Float>
       ))}
@@ -97,7 +114,14 @@ export function AdminCommandScene() {
         <ambientLight intensity={0.35} />
         <directionalLight position={[2.2, 2.5, 3]} intensity={1.35} color="#fff7e7" />
         <pointLight position={[-2, -2, -2]} intensity={26} color="#f5a623" />
-        <Sparkles count={120} scale={[8, 4, 8]} size={2.1} speed={0.45} opacity={0.5} color="#ffffff" />
+        <Sparkles
+          count={120}
+          scale={[8, 4, 8]}
+          size={2.1}
+          speed={0.45}
+          opacity={0.5}
+          color="#ffffff"
+        />
         <Environment preset="night" />
 
         <CommandCore />

@@ -19,7 +19,10 @@ export const authConfig = {
     }),
     Resend({
       apiKey: process.env.RESEND_API_KEY,
-      from: process.env.EMAIL_FROM_AUTH ?? process.env.EMAIL_FROM_DEFAULT ?? "ShopNova Auth <auth@shopnova.dev>",
+      from:
+        process.env.EMAIL_FROM_AUTH ??
+        process.env.EMAIL_FROM_DEFAULT ??
+        "ShopNova Auth <auth@shopnova.dev>",
       async sendVerificationRequest({ identifier, url }) {
         await sendMagicLinkEmail(identifier, url);
       }

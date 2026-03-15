@@ -102,6 +102,9 @@ export async function POST(request: Request): Promise<NextResponse> {
 
     return NextResponse.json({ id: checkout.id, url: checkout.url, orderId: order.id });
   } catch {
-    return NextResponse.json({ error: "Failed to create Stripe checkout session" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to create Stripe checkout session" },
+      { status: 500 }
+    );
   }
 }

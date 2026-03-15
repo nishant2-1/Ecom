@@ -159,14 +159,19 @@ export function CheckoutClient() {
           </div>
         </div>
 
-        {loadingIntent ? <p className="text-sm text-white/70">Preparing secure payment...</p> : null}
+        {loadingIntent ? (
+          <p className="text-sm text-white/70">Preparing secure payment...</p>
+        ) : null}
 
         {clientSecret && stripePromise ? (
           <div className="glass-card rounded-2xl p-5">
             <h3 className="text-luxury-heading text-xl">Embedded Checkout</h3>
             <p className="mt-1 text-sm text-white/70">Pay directly without leaving ShopNova.</p>
             <div className="mt-4">
-              <Elements stripe={stripePromise} options={{ clientSecret, appearance: { theme: "night" } }}>
+              <Elements
+                stripe={stripePromise}
+                options={{ clientSecret, appearance: { theme: "night" } }}
+              >
                 <EmbeddedPaymentForm onSuccess={clear} />
               </Elements>
             </div>
@@ -175,7 +180,9 @@ export function CheckoutClient() {
 
         <div className="glass-card rounded-2xl p-5">
           <h3 className="text-luxury-heading text-xl">Stripe Hosted Checkout</h3>
-          <p className="mt-1 text-sm text-white/70">Prefer hosted checkout? Use Stripe secure page.</p>
+          <p className="mt-1 text-sm text-white/70">
+            Prefer hosted checkout? Use Stripe secure page.
+          </p>
           <button
             type="button"
             onClick={startHostedCheckout}

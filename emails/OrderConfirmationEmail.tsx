@@ -34,11 +34,16 @@ export function OrderConfirmationEmail({
           Order Summary
         </Text>
         {items.map((item) => (
-          <Text key={`${item.name}-${item.quantity}`} style={{ color: "#d6d6d6", fontSize: "14px", margin: "8px 0" }}>
+          <Text
+            key={`${item.name}-${item.quantity}`}
+            style={{ color: "#d6d6d6", fontSize: "14px", margin: "8px 0" }}
+          >
             {item.name} x {item.quantity} - {item.lineTotal}
           </Text>
         ))}
-        <Text style={{ color: "#F5A623", fontWeight: 700, marginTop: "16px", fontSize: "15px" }}>Total: {total}</Text>
+        <Text style={{ color: "#F5A623", fontWeight: 700, marginTop: "16px", fontSize: "15px" }}>
+          Total: {total}
+        </Text>
       </Section>
     </EmailShell>
   );

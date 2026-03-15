@@ -4,9 +4,9 @@ Describe the change in a few sentences.
 
 ## What Changed
 
-- 
-- 
-- 
+-
+-
+-
 
 ## Validation
 

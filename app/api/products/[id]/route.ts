@@ -10,7 +10,10 @@ type ProductRouteParams = {
   };
 };
 
-export async function GET(_request: Request, { params }: ProductRouteParams): Promise<NextResponse> {
+export async function GET(
+  _request: Request,
+  { params }: ProductRouteParams
+): Promise<NextResponse> {
   try {
     const product = await prisma.product.findUnique({
       where: { id: params.id },
@@ -27,7 +30,10 @@ export async function GET(_request: Request, { params }: ProductRouteParams): Pr
   }
 }
 
-export async function PATCH(request: Request, { params }: ProductRouteParams): Promise<NextResponse> {
+export async function PATCH(
+  request: Request,
+  { params }: ProductRouteParams
+): Promise<NextResponse> {
   try {
     const session = await requireAdminSession();
     if (!session) {
@@ -59,7 +65,10 @@ export async function PATCH(request: Request, { params }: ProductRouteParams): P
   }
 }
 
-export async function DELETE(_request: Request, { params }: ProductRouteParams): Promise<NextResponse> {
+export async function DELETE(
+  _request: Request,
+  { params }: ProductRouteParams
+): Promise<NextResponse> {
   try {
     const session = await requireAdminSession();
     if (!session) {

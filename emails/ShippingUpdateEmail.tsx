@@ -7,11 +7,7 @@ type ShippingUpdateEmailProps = {
   status: string;
 };
 
-export function ShippingUpdateEmail({
-  customerName,
-  orderId,
-  status
-}: ShippingUpdateEmailProps) {
+export function ShippingUpdateEmail({ customerName, orderId, status }: ShippingUpdateEmailProps) {
   return (
     <EmailShell
       preview="Your ShopNova order status was updated"

@@ -91,21 +91,25 @@ export async function GET(): Promise<NextResponse> {
       });
 
       const items =
-        cart?.items.map((item: {
-          productId: string;
-          quantity: number;
-          price: number;
-          product: {
-            name: string;
-            images: string;
-          };
-        }) => ({
-          productId: item.productId,
-          name: item.product.name,
-          image: (JSON.parse(item.product.images as string) as string[])[0] ?? "https://images.unsplash.com/photo-1523275335684-37898b6baf30",
-          price: Number(item.price),
-          quantity: item.quantity
-        })) ?? [];
+        cart?.items.map(
+          (item: {
+            productId: string;
+            quantity: number;
+            price: number;
+            product: {
+              name: string;
+              images: string;
+            };
+          }) => ({
+            productId: item.productId,
+            name: item.product.name,
+            image:
+              (JSON.parse(item.product.images as string) as string[])[0] ??
+              "https://images.unsplash.com/photo-1523275335684-37898b6baf30",
+            price: Number(item.price),
+            quantity: item.quantity
+          })
+        ) ?? [];
 
       return NextResponse.json({ items, source: "db" });
     }
@@ -176,7 +180,9 @@ export async function DELETE(): Promise<NextResponse> {
     const session = await auth();
     const forwarded = headers().get("x-forwarded-for") ?? "anonymous";
     const ip = forwarded.split(",")[0]?.trim() || "anonymous";
-    const cartKey = session?.user?.id ? `cart:delete:user:${session.user.id}` : `cart:delete:ip:${ip}`;
+    const cartKey = session?.user?.id
+      ? `cart:delete:user:${session.user.id}`
+      : `cart:delete:ip:${ip}`;
     const deleteLimit = await enforceRateLimit(cartKey, 60, 60);
 
     if (!deleteLimit.allowed) {

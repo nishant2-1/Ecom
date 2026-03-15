@@ -28,7 +28,10 @@ function resolveAddress(raw: string): string {
       country?: string;
     };
 
-    return [parsed.city, parsed.state, parsed.country].filter(Boolean).join(", ") || "Unspecified destination";
+    return (
+      [parsed.city, parsed.state, parsed.country].filter(Boolean).join(", ") ||
+      "Unspecified destination"
+    );
   } catch {
     return "Unspecified destination";
   }
@@ -41,26 +44,35 @@ export default async function AdminPage() {
     redirect("/");
   }
 
-  const [usersCount, productsCount, orderMetrics, lowStockCount, featuredCount, categories, products, orders, users] =
-    await Promise.all([
-      prisma.user.count(),
-      prisma.product.count(),
-      prisma.order.findMany({
-        select: {
-          total: true,
-          status: true
-        }
-      }),
-      prisma.product.count({ where: { stock: { lte: 10 } } }),
-      prisma.product.count({ where: { featured: true } }),
-      prisma.category.findMany({
-        select: {
-          id: true,
-          name: true,
-          slug: true
-        },
-        orderBy: { name: "asc" }
-      }),
+  const [
+    usersCount,
+    productsCount,
+    orderMetrics,
+    lowStockCount,
+    featuredCount,
+    categories,
+    products,
+    orders,
+    users
+  ] = await Promise.all([
+    prisma.user.count(),
+    prisma.product.count(),
+    prisma.order.findMany({
+      select: {
+        total: true,
+        status: true
+      }
+    }),
+    prisma.product.count({ where: { stock: { lte: 10 } } }),
+    prisma.product.count({ where: { featured: true } }),
+    prisma.category.findMany({
+      select: {
+        id: true,
+        name: true,
+        slug: true
+      },
+      orderBy: { name: "asc" }
+    }),
     prisma.product.findMany({
       select: {
         id: true,
@@ -118,7 +130,7 @@ export default async function AdminPage() {
       orderBy: { createdAt: "desc" },
       take: 12
     })
-    ]);
+  ]);
 
   const paidStatuses = new Set(["PAID", "SHIPPED", "DELIVERED"]);
   const paidOrders = orderMetrics.filter((order) => paidStatuses.has(order.status));
@@ -146,14 +158,18 @@ export default async function AdminPage() {
     paidOrders: paidOrders.length
   };
 
-  const statusBreakdown = Array.from(statusMap.entries()).map(([status, count]) => ({ status, count }));
+  const statusBreakdown = Array.from(statusMap.entries()).map(([status, count]) => ({
+    status,
+    count
+  }));
   const emailStatus = getEmailRuntimeStatus();
 
   return (
     <section className="mx-auto max-w-[1500px] px-6 py-10 md:px-12">
       <h1 className="text-luxury-heading text-4xl md:text-5xl">Admin Command Center</h1>
       <p className="mt-2 max-w-3xl text-sm text-white/70 md:text-base">
-        High-visibility operations for inventory, customers, and order flow with real product visuals and a premium control-surface layout.
+        High-visibility operations for inventory, customers, and order flow with real product
+        visuals and a premium control-surface layout.
       </p>
 
       <div className="mt-8">

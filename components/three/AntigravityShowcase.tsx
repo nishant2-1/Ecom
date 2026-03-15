@@ -2,7 +2,13 @@
 
 import { useMemo, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Environment, Float, MeshDistortMaterial, OrbitControls, Sparkles } from "@react-three/drei";
+import {
+  Environment,
+  Float,
+  MeshDistortMaterial,
+  OrbitControls,
+  Sparkles
+} from "@react-three/drei";
 import type { Group, Mesh } from "three";
 
 function CoreMesh() {
@@ -67,10 +73,21 @@ function OrbitRing({ radius, count, color, speed, y }: OrbitRingProps) {
   return (
     <group ref={groupRef} position={[0, y, 0]}>
       {nodes.map((node, index) => (
-        <Float key={`${radius}-${index}`} speed={1.3 + index * 0.07} rotationIntensity={0.55} floatIntensity={0.5}>
+        <Float
+          key={`${radius}-${index}`}
+          speed={1.3 + index * 0.07}
+          rotationIntensity={0.55}
+          floatIntensity={0.5}
+        >
           <mesh position={[node.x, 0, node.z]} rotation={[0, node.rot, 0]}>
             <boxGeometry args={[0.22, 0.12, 0.32]} />
-            <meshStandardMaterial color={color} emissive={color} emissiveIntensity={0.35} roughness={0.35} metalness={0.75} />
+            <meshStandardMaterial
+              color={color}
+              emissive={color}
+              emissiveIntensity={0.35}
+              roughness={0.35}
+              metalness={0.75}
+            />
           </mesh>
         </Float>
       ))}
@@ -85,7 +102,14 @@ export function AntigravityShowcase() {
         <ambientLight intensity={0.35} />
         <directionalLight position={[2, 2, 2]} intensity={1.2} color="#fff6df" />
         <pointLight position={[-2, -1, -2]} intensity={22} color="#f5a623" />
-        <Sparkles count={90} scale={[7, 4, 7]} size={2.2} speed={0.4} opacity={0.55} color="#ffffff" />
+        <Sparkles
+          count={90}
+          scale={[7, 4, 7]}
+          size={2.2}
+          speed={0.4}
+          opacity={0.55}
+          color="#ffffff"
+        />
         <Environment preset="city" />
 
         <CoreMesh />
