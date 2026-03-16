@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import type { Prisma } from "../../../../node_modules/.prisma/client";
+import type { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { productSchema } from "@/lib/validations";
 import { requireAdminSession } from "@/lib/authorization";
