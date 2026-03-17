@@ -66,6 +66,7 @@ GOOGLE_CLIENT_ID=""
 GOOGLE_CLIENT_SECRET=""
 GITHUB_ID=""
 GITHUB_SECRET=""
+NEXT_PUBLIC_SPLINE_SCENE_URL=""
 ```
 
 ### 3. Generate Prisma client and seed data

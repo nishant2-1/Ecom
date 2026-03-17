@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { HeroScene } from "@/components/three/HeroScene";
+import { SplineShowcase } from "@/components/three/SplineShowcase";
 import { TextReveal } from "@/components/animations/TextReveal";
 import { MagneticButton } from "@/components/animations/MagneticButton";
 import { ProductGrid } from "@/components/product/ProductGrid";
@@ -38,6 +39,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <SplineShowcase />
 
       <section className="mx-auto max-w-7xl px-6 pt-10 md:px-12">
         <div className="mb-8 flex items-end justify-between">
