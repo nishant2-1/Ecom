@@ -42,12 +42,14 @@ export function SplineShowcase() {
               href="https://spline.design"
               target="_blank"
               rel="noreferrer"
+              aria-label="Open Spline website in a new tab"
               className="rounded-xl bg-luxury-amber px-4 py-2 text-sm font-semibold text-black"
             >
               Create Your Spline Scene
             </Link>
             <Link
               href="/products"
+              aria-label="Browse products page"
               className="rounded-xl border border-white/20 px-4 py-2 text-sm text-white/80 transition hover:border-luxury-amber hover:text-luxury-amber"
             >
               See Products In Motion
@@ -57,8 +59,12 @@ export function SplineShowcase() {
 
         <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-black/40 p-2 shadow-[0_24px_80px_rgba(0,0,0,0.45)]">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(245,166,35,0.2),transparent_55%)]" />
-          <div className="relative h-[520px] w-full rounded-2xl">
-            <Spline scene={sceneUrl} />
+          <div
+            className="relative h-[520px] w-full rounded-2xl"
+            role="img"
+            aria-label="Interactive Spline 3D showroom scene"
+          >
+            <Spline scene={sceneUrl} renderOnDemand />
           </div>
         </div>
       </div>
