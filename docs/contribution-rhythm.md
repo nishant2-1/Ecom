@@ -54,6 +54,24 @@ git push origin main
 - Contributions on default branch (`main`) count directly.
 - Private repo commits count only if private contributions are enabled in profile settings.
 
+## If The Graph Is Still Not Updating
+
+- Wait 5-15 minutes and refresh your profile page.
+- Verify commit email in GitHub settings: <https://github.com/settings/emails>
+- Enable private contribution visibility: <https://github.com/settings/profile>
+- Prefer GitHub noreply format for guaranteed mapping:
+
+```bash
+git config user.name "nishant2-1"
+git config user.email "187791492+nishant2-1@users.noreply.github.com"
+```
+
+- Confirm the newest commit author email:
+
+```bash
+git log -1 --pretty=format:'%an <%ae>'
+```
+
 ## Quick Verification
 
 ```bash
