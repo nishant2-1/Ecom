@@ -125,6 +125,10 @@ store/              Zustand client stores
 - pre-push runs `npm run typecheck`
 - local SQLite database file is ignored from git
 
+## Contribution Maintenance
+
+- Use [docs/contribution-rhythm.md](docs/contribution-rhythm.md) for a repeatable weekly routine to keep commits meaningful and your GitHub graph active.
+
 ## Repository
 
 Published to:
