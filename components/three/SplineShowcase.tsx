@@ -1,16 +1,7 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import Link from "next/link";
-
-const Spline = dynamic(() => import("@splinetool/react-spline"), {
-  ssr: false,
-  loading: () => (
-    <div className="flex h-[520px] w-full items-center justify-center rounded-3xl bg-black/30 text-sm text-white/70">
-      Loading immersive scene...
-    </div>
-  )
-});
+import Spline from "@splinetool/react-spline/next";
 
 const DEFAULT_SPLINE_SCENE = "https://prod.spline.design/6Wq1Q7YGyM-iab9i/scene.splinecode";
 
