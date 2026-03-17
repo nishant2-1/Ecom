@@ -40,6 +40,14 @@ git push origin main
 - 1 merged PR per week (if using branch workflow)
 - Keep CI green on every push
 
+## Simple Weekly Commit Menu
+
+- Monday: one UI polish ticket
+- Tuesday: one docs clarity update
+- Wednesday: one API validation or error handling improvement
+- Thursday: one performance or accessibility tweak
+- Friday: one test or refactor cleanup
+
 ## Important GitHub Graph Rules
 
 - The commit email must match your GitHub account email.
