@@ -25,6 +25,13 @@ const payloadSchema = z.object({
 
 export async function POST(request: Request): Promise<NextResponse> {
   try {
+    if (!stripe) {
+      return NextResponse.json(
+        { error: "Stripe is not configured. Add STRIPE_SECRET_KEY on the server." },
+        { status: 503 }
+      );
+    }
+
     const session = await auth();
     if (!session?.user?.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

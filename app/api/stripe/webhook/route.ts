@@ -50,6 +50,13 @@ async function markOrderAsPaid(orderId: string): Promise<void> {
 }
 
 export async function POST(request: Request): Promise<NextResponse> {
+  if (!stripe) {
+    return NextResponse.json(
+      { error: "Stripe is not configured. Add STRIPE_SECRET_KEY on the server." },
+      { status: 503 }
+    );
+  }
+
   const signature = request.headers.get("stripe-signature");
   if (!signature) {
     return NextResponse.json({ error: "Missing stripe-signature header" }, { status: 400 });
